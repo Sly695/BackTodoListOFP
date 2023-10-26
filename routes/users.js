@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const usersModel = require('../models/users');
 
 /* GET users listing. */
@@ -22,7 +22,7 @@ router.post('/signup', async (req, res) => {
 
   try {
     // Check if the user already exists with the provided email
-    const existingUser = await usersModel.findOne({ email });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: 'User with this email already exists' });
     }

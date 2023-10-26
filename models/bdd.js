@@ -1,6 +1,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = "mongodb+srv://sly:slyuser@cluster0.zgftinn.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.BDD_LINk;
 
 const client = new MongoClient(uri, {
     serverApi: {
