@@ -66,9 +66,9 @@ router.put('/updateTask', async (req, res) => {
   }
 });
 
-router.delete('/deleteTask/:taskId', async (req, res) => {
+router.delete('/deleteTask', async (req, res) => {
   try {
-    const taskId = req.query;
+    const taskId = req.body.id;
 
     // Find the task by ID and remove it
     const deletedTask = await taskModel.findByIdAndRemove(taskId);
