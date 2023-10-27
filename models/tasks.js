@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 
 // Define the Task schema
 const taskSchema = new mongoose.Schema({
-  desc: {
+  description: {
     type: String,
-    enum: ['Urgent', 'Normal', 'À Planifier'],
   },
   priority: {
     type: String,

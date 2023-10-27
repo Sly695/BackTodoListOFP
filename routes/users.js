@@ -29,6 +29,7 @@ router.get('/signin', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   const { username, email, password, region } = req.body;
+  console.log(req.body)
 
   try {
     // Check if the user already exists with the provided email
