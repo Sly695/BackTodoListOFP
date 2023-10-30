@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 require('dotenv').config()
 
 
@@ -35,6 +36,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors())
 
 app.use((res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
