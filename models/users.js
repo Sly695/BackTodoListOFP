@@ -1,11 +1,27 @@
 const mongoose = require('mongoose');
 
-// Define the User schema
-var usersSchema = mongoose.Schema({
-  username: String,
-  email: String,
-  password: String,
-  region: String
+const usersSchema = new mongoose.Schema({
+  username: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  password: {
+    type: String,
+  },
+  region: {
+    type: String,
+    enum: ['Annecy', 'Lyon'],
+  },
+  role: {
+    type: String,
+    default: "Collaborateur",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // Create the User model
