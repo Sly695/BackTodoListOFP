@@ -36,6 +36,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://yourfrontenddomain.com');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
