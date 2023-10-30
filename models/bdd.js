@@ -2,22 +2,15 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const mongoose = require('mongoose');
 
-const uri = "mongodb+srv://sly:slyuser@cluster0.zgftinn.mongodb.net/database?retryWrites=true&w=majority";
+mongoose.connect(process.env.BDD_LINK, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+    // Additional code for database operations can go here
+  })
+  .catch((err) => {
+    console.error('Error connecting to MongoDB:', err);
+  });
 
-// const client = new MongoClient(uri, {
-//     serverApi: {
-//         version: ServerApiVersion.v1,
-//         strict: true,
-//         deprecationErrors: true,
-//     }
-// });
-
-
-
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 
 // async function run() {
 //     try {

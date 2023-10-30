@@ -8,12 +8,12 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
+const rateLimit = require('express-rate-limit');
+require('dotenv').config()
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use('./routes/users/signin', limiter);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -21,13 +21,10 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again later.',
 });
 
+app.use('./routes/users/signin', limiter);
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
-
-require('dotenv').config()
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
