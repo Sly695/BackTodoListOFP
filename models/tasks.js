@@ -7,11 +7,11 @@ const taskSchema = new mongoose.Schema({
   },
   priority: {
     type: String,
-    enum: ['Urgent', 'Normal', 'À Planifier'],
+    enum: ['urgent', 'normal', 'planifier'],
   },
   status: {
     type: String,
-    enum: ['Done', 'In Progress'],
+    enum: ['done', 'progress'],
   },
   category: {
     type: String,

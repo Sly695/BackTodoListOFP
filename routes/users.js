@@ -18,7 +18,7 @@ router.get('/signin', async (req, res) => {
 
     if (user) {
       if (bcrypt.compareSync(password, user.password)) {
-        res.json({ message: 'Succès de la connexion', user: user });
+        res.json({ message: 'Succès de la connexion', user: user});
       } else {
         res.json({ message: 'Mot de passe incorrect' });
       }
@@ -74,7 +74,7 @@ router.post('/signup', async (req, res) => {
       await newUser.save();
   
       // Send a success message
-      res.json({ message: 'Nouvel utilisateur crée avec succès' });
+      res.json({ message: 'Nouvel utilisateur crée avec succès', user: newUser  });
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
