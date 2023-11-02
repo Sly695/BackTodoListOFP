@@ -18,7 +18,7 @@ router.get('/signin', async (req, res) => {
 
     if (user) {
       if (bcrypt.compareSync(password, user.password)) {
-        res.json({ message: 'Succès de la connexion' });
+        res.json({ message: 'Succès de la connexion', user: user });
       } else {
         res.json({ message: 'Mot de passe incorrect' });
       }
@@ -33,23 +33,26 @@ router.get('/signin', async (req, res) => {
   }
 });
 
+
+
 router.post('/signup', async (req, res) => {
   const { username, email, password, region } = req.body;
-  let hash = bcrypt.hashSync(password, 10);
   const schema = new passwordValidator();
-
+  const salt = 10;
   schema
     .is().min(8)           // Minimum length 8
     .is().max(100)         // Maximum length 100
     .has().digits()        // Must have digits
     .has().symbols();      // Must have symbols
 
-  // Validate a password
+  //Validate a password
   const passwordToCheck = password;
   const isValid = schema.validate(passwordToCheck);
 
   // Get a list of failed rules
   const failedRules = schema.validate(passwordToCheck, { list: true });
+
+  let hash = bcrypt.hashSync(password, salt);
 
   if (isValid) {
     try {
@@ -76,7 +79,7 @@ router.post('/signup', async (req, res) => {
       console.error(error);
       res.status(500).send('Internal Server Error');
     }
-} else {
+  } else {
     res.json({ message: `Le mot de passe ne respecte pas les exigeances : ${failedRules}` 
   });
 }
