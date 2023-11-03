@@ -68,10 +68,7 @@ router.put('/updateTask', async (req, res) => {
 
 router.delete('/deleteTask', async (req, res) => {
   try {
-    const taskId = req.body.id;
-
-    // Find the task by ID and remove it
-    const deletedTask = await taskModel.findByIdAndRemove(taskId);
+    const deletedTask = await taskModel.deleteOne({_id: req.query.id});
 
     if (!deletedTask) {
       return res.status(404).json({ message: 'Task not found' });
