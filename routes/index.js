@@ -10,6 +10,8 @@ router.get('/test', function(req, res, next) {
 router.post('/addTask', async (req, res) => {
   try {
     const { description, priority, status, category } = req.body;
+    console.log("first")
+    console.log(req.body)
 
     // Create a new task instance
     const newTask = new taskModel({ description, priority, status, category });
@@ -39,11 +41,11 @@ router.get('/getTasks', async function (req, res, next) {
 
 router.put('/updateTask', async (req, res) => {
   try {
-    const taskId = req.body.id;
-    const { description, priority, status, category } = req.body;
+
+    const { id, description, priority, status, category } = req.body;
 
     // Find the task by ID
-    const task = await taskModel.findById(taskId);
+    const task = await taskModel.findById(id);
 
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
@@ -56,7 +58,9 @@ router.put('/updateTask', async (req, res) => {
     task.category = category || task.category;
 
     // Save the updated task
-    await task.save();
+    const newTask = await task.save();
+
+    console.log(newTask)
 
     // Respond with a success message or the updated task
     res.json({ message: 'Task updated successfully', task });
