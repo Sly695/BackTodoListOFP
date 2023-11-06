@@ -31,22 +31,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors())
 
-app.options('/addTask', cors());
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Allow any origin (replace * with your specific origin)
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified methods
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specified headers
-  res.header('Access-Control-Allow-Credentials', true); // Allow credentials (if needed)
-  
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(204);
-  }
-
-  next();
-});
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

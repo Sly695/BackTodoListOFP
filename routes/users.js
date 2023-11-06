@@ -5,8 +5,9 @@ let bcrypt = require('bcrypt');
 const passwordValidator = require('password-validator');
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
+router.get('/', (req, res) => {
+  const aboutPath = path.resolve(__dirname, 'FrontTodolistOFP', 'sign_in', 'index.html');
+  res.sendFile(aboutPath);
 });
 
 router.get('/signin', async (req, res) => {

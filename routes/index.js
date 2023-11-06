@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const taskModel = require('../models/tasks')
 const mongoose = require('mongoose')
+const path = require('path')
 
-/* GET home page. */
-router.get('/test', function(req, res, next) {
-  res.json({message: 'yes'})
+router.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'FrontTodolistOFP', 'sign_in', 'index.html'));
 });
+
 
 router.post('/addTask', async (req, res) => {
   try {
@@ -27,8 +28,6 @@ router.post('/addTask', async (req, res) => {
   }
 });
 
-
-
 router.get('/getTasks', async function (req, res, next) {
   try {
     const users = await taskModel.find();;
@@ -42,10 +41,13 @@ router.get('/getTasks', async function (req, res, next) {
 router.put('/updateTask', async (req, res) => {
   try {
 
-    const { id, description, priority, status, category } = req.body;
+    const { id, description, category, priority, status } = req.body;
+
+    let idWithHash = id;
+    let idWithoutHash = idWithHash.substring(1); // Remove the "#" character
 
     // Find the task by ID
-    const task = await taskModel.findById(id);
+    const task = await taskModel.findById({_id: idWithoutHash});
 
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
@@ -72,7 +74,7 @@ router.put('/updateTask', async (req, res) => {
 
 router.delete('/deleteTask', async (req, res) => {
   try {
-    const deletedTask = await taskModel.deleteOne({_id: req.query.id});
+    const deletedTask = await taskModel.deleteOne({ _id: req.query.id });
 
     if (!deletedTask) {
       return res.status(404).json({ message: 'Task not found' });
